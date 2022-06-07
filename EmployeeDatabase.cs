@@ -27,7 +27,7 @@ namespace SuncoastHumanResources
         // Delete DELETE employee
         public void DeleteEmployee(Employee employeeToDelete)
         {
-            Employee.Remove(employeeToDelete);
+            Employees.Remove(employeeToDelete);
         }
         // Update?
 

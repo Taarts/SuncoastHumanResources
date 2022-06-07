@@ -58,44 +58,31 @@ namespace SuncoastHumanResources
                 Console.Write("What do you want to do?\n (A)dd an employee\n (U)pdate an employee\n (D)elete an employee\n or (S)how all the employees\n or (F)ind an employee\n or (Q)uit: ");
                 var choice = Console.ReadLine().ToUpper();
 
-                if (choice == "Q")
+                switch (choice)
                 {
-                    // They said quit, so set our keepGoing to false
-                    keepGoing = false;
-                }
-                else
-                if (choice == "D")
-                //  Delete - (CREATE, READ, UPDATE & DELETE)
+                    case "Q":
+                        keepGoing = false;
+                        break;
+                    case "D":
+                        DeleteEmployee(database);
+                        break;
+                    case "F":
+                        ShowEmployee(database);
+                        break;
+                    case "S":
+                        showAllEmployees(database);
+                        break;
+                    case "U":
+                        UpdateEmployee(database);
+                        break;
+                    case "A":
+                        AddEmployees(database);
+                        break;
 
-                // Employee name to search for
-                {
-                    DeleteEmployee(database);
+                    default:
+                        Console.WriteLine("☠️ ☠️ ☠️ ☠️ ☠️ NOPE! ☠️ ☠️ ☠️ ☠️ ☠️");
+                        break;
 
-                }
-                else
-                if (choice == "F")
-                {
-                    ShowEmployee(database);
-                }
-                else
-                if (choice == "S")
-                {
-                    showAllEmployees(database);
-                }
-                else
-                if (choice == "U")
-                {
-                    UpdateEmployee(database);
-                }
-                else
-                if (choice == "A")
-                {
-                    AddEmployees(database);
-                }
-
-                else
-                {
-                    Console.WriteLine("☠️ ☠️ ☠️ ☠️ ☠️ NOPE! ☠️ ☠️ ☠️ ☠️ ☠️");
                 }
                 // end of the `while` statement
             }
