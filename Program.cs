@@ -14,6 +14,35 @@ namespace SuncoastHumanResources
             return Salary / 12;
         }
     }
+    class EmployeeDatabase
+    {
+        private List<Employee> Employees { get; set; } = new List<Employee>();
+
+        // Create ADD employee
+        public void AddEmployee(Employee newEmployee)
+        {
+            Employees.Add(newEmployee);
+        }
+        // Read GET all the Employees
+        public List<Employee> GetAllEmployees()
+        {
+            return Employees;
+        }
+        // Read FIND one employee
+        public Employee FindOneEmployee(string nameToFind)
+        {
+            Employee foundEmployee = Employees.FirstOrDefault(Employee => Employee.Name.ToUpper().Contains(nameToFind.ToUpper()));
+
+            return foundEmployee;
+        }
+        // Delete DELETE employee
+        public void DeleteEmployee(Employee employeeToDelete)
+        {
+            Employee.Remove(employeeToDelete);
+        }
+        // Update?
+
+    }
 
     class Program
     {
@@ -54,7 +83,7 @@ namespace SuncoastHumanResources
         static void Main(string[] args)
         {
             // Our list of employees
-            var employees = new List<Employee>();
+            var database = new EmployeeDatabase();
 
             // Should we keep showing the menu?
 
@@ -83,7 +112,7 @@ namespace SuncoastHumanResources
                 {
                     var name = PromptForString("What name are you looking for? ");
                     // search to see if the employee exists
-                    Employee foundEmployee = employees.FirstOrDefault(employee => employee.Name == name);
+                    Employee foundEmployee = database.FindOneEmployee(name);
                     // if employee not found 
                     if (foundEmployee == null)
                     {
@@ -101,7 +130,7 @@ namespace SuncoastHumanResources
                         // no
                         if (confirm == "Y")
                         {
-                            employees.Remove(foundEmployee);
+                            database.DeleteEmployee(foundEmployee);
                         }
                     }
 
@@ -114,7 +143,7 @@ namespace SuncoastHumanResources
 
                     // Make a new variable to store the found employee, initializing
                     // to null which will indicate no match found
-                    Employee foundEmployee = employees.FirstOrDefault(employee => employee.Name == name);
+                    Employee foundEmployee = database.FindOneEmployee(name);
 
                     // If the foundEmployee is still null, nothing was found
                     if (foundEmployee == null)
@@ -131,7 +160,7 @@ namespace SuncoastHumanResources
                 if (choice == "S")
                 {
                     // Loop through each employee
-                    foreach (var employee in employees)
+                    foreach (var employee in database.GetAllEmployees())
                     {
                         // And print details
                         Console.WriteLine($"{employee.Name} is in department {employee.Department} and makes ${employee.Salary}");
@@ -143,7 +172,7 @@ namespace SuncoastHumanResources
                     // Update - CREATE,  READ, UPDATE, DELETE
                     var name = PromptForString("What name are you looking for? ");
                     // search to see if the employee exists
-                    Employee foundEmployee = employees.FirstOrDefault(employee => employee.Name == name);
+                    Employee foundEmployee = database.FindOneEmployee(name);
                     // if employee not found 
                     if (foundEmployee == null)
                     {
@@ -190,7 +219,7 @@ namespace SuncoastHumanResources
                     employee.Salary = PromptForInteger("What is your yearly salary (in dollars)? ");
 
                     // Add it to the list
-                    employees.Add(employee);
+                    database.AddEmployee(employee);
                 }
 
                 else
