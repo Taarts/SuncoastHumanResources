@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SuncoastHumanResources
 {
@@ -66,7 +67,7 @@ namespace SuncoastHumanResources
             {
                 // Insert a blank line then prompt them and get their answer (force uppercase)
                 Console.WriteLine();
-                Console.Write("What do you want to do? (A)dd an employee or (S)how all the employees or (F)ind an employee or (Q)uit: ");
+                Console.Write("What do you want to do? (A)dd an employee\n or (S)how all the employees\n or (F)ind an employee\n or (Q)uit: ");
                 var choice = Console.ReadLine().ToUpper();
 
                 if (choice == "Q")
@@ -81,18 +82,7 @@ namespace SuncoastHumanResources
 
                     // Make a new variable to store the found employee, initializing
                     // to null which will indicate no match found
-                    Employee foundEmployee = null;
-
-                    // Go through all the employees
-                    foreach (var employee in employees)
-                    {
-                        // If the name matches
-                        if (employee.Name == name)
-                        {
-                            // ... then store this employee in the foundEmployee variable
-                            foundEmployee = employee;
-                        }
-                    }
+                    Employee foundEmployee = employees.FirstOrDefault(employee => employee.Name == name);
 
                     // If the foundEmployee is still null, nothing was found
                     if (foundEmployee == null)
