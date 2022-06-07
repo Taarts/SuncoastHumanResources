@@ -67,7 +67,7 @@ namespace SuncoastHumanResources
             {
                 // Insert a blank line then prompt them and get their answer (force uppercase)
                 Console.WriteLine();
-                Console.Write("What do you want to do?\n (A)dd an employee\n (D)elete an employee\n or (S)how all the employees\n or (F)ind an employee\n or (Q)uit: ");
+                Console.Write("What do you want to do?\n (A)dd an employee\n (U)pdate an employee\n (D)elete an employee\n or (S)how all the employees\n or (F)ind an employee\n or (Q)uit: ");
                 var choice = Console.ReadLine().ToUpper();
 
                 if (choice == "Q")
@@ -77,12 +77,20 @@ namespace SuncoastHumanResources
                 }
                 else
                 if (choice == "D")
+                //  Delete - (CREATE, READ, UPDATE & DELETE)
+
+                // Employee name to search for
                 {
                     var name = PromptForString("What name are you looking for? ");
                     // search to see if the employee exists
                     Employee foundEmployee = employees.FirstOrDefault(employee => employee.Name == name);
-                    // if employee found 
-                    if (foundEmployee != null)
+                    // if employee not found 
+                    if (foundEmployee == null)
+                    {
+                        Console.WriteLine("Employee doesn't exist.");
+                    }
+                    // employee found, Delete?
+                    else
                     {
                         // We did find the employee
                         // show details
@@ -96,13 +104,7 @@ namespace SuncoastHumanResources
                             employees.Remove(foundEmployee);
                         }
                     }
-                    else
-                    {
-                        // otherwise
-                        //  - nope
-                        // "Employee doesn't exist"
-                        Console.WriteLine("Employee doesn't exist.");
-                    }
+
                 }
                 else
                 if (choice == "F")
@@ -125,7 +127,8 @@ namespace SuncoastHumanResources
                         Console.WriteLine($"{foundEmployee.Name} is in department {foundEmployee.Department} and makes ${foundEmployee.Salary}");
                     }
                 }
-                else if (choice == "S")
+                else
+                if (choice == "S")
                 {
                     // Loop through each employee
                     foreach (var employee in employees)
@@ -135,6 +138,48 @@ namespace SuncoastHumanResources
                     }
                 }
                 else
+                if (choice == "U")
+                {
+                    // Update - CREATE,  READ, UPDATE, DELETE
+                    var name = PromptForString("What name are you looking for? ");
+                    // search to see if the employee exists
+                    Employee foundEmployee = employees.FirstOrDefault(employee => employee.Name == name);
+                    // if employee not found 
+                    if (foundEmployee == null)
+                    {
+                        Console.WriteLine("Employee doesn't exist.");
+                    }
+                    else
+                    {
+                        // confirm
+                        Console.WriteLine($"{foundEmployee.Name} is in department {foundEmployee.Department} and makes ${foundEmployee.Salary}");
+                        var changeChoice = PromptForString("What do you want to change [Name/Dept/Salary]? ");
+
+                        // what do you want to change
+                        //    - if name
+                        if (changeChoice == "Name")
+                        {
+                            //      - prompt for name
+                            foundEmployee.Name = PromptForString("What is the new name? ");
+                        }
+                        //    - if dept
+                        //      - prompt for dept
+                        if (changeChoice == "Department")
+                        {
+                            foundEmployee.Department = PromptForInteger("What is the new department? ");
+                        }
+                        //    - if Salary
+                        //      - prompt for salary
+                        if (changeChoice == "Salary")
+                        {
+                            foundEmployee.Salary = PromptForInteger("What is the new Salary? ");
+                        }
+                        // if not found 
+                        // show message
+                    }
+                }
+                else
+                if (choice == "A")
                 {
                     // Make a new employee object
                     var employee = new Employee();
@@ -148,6 +193,10 @@ namespace SuncoastHumanResources
                     employees.Add(employee);
                 }
 
+                else
+                {
+                    Console.WriteLine("☠️ ☠️ ☠️ ☠️ ☠️ NOPE! ☠️ ☠️ ☠️ ☠️ ☠️");
+                }
                 // end of the `while` statement
             }
         }
