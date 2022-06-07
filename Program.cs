@@ -67,7 +67,7 @@ namespace SuncoastHumanResources
             {
                 // Insert a blank line then prompt them and get their answer (force uppercase)
                 Console.WriteLine();
-                Console.Write("What do you want to do? (A)dd an employee\n or (S)how all the employees\n or (F)ind an employee\n or (Q)uit: ");
+                Console.Write("What do you want to do?\n (A)dd an employee\n (D)elete an employee\n or (S)how all the employees\n or (F)ind an employee\n or (Q)uit: ");
                 var choice = Console.ReadLine().ToUpper();
 
                 if (choice == "Q")
@@ -75,7 +75,37 @@ namespace SuncoastHumanResources
                     // They said quit, so set our keepGoing to false
                     keepGoing = false;
                 }
-                else if (choice == "F")
+                else
+                if (choice == "D")
+                {
+                    var name = PromptForString("What name are you looking for? ");
+                    // search to see if the employee exists
+                    Employee foundEmployee = employees.FirstOrDefault(employee => employee.Name == name);
+                    // if employee found 
+                    if (foundEmployee != null)
+                    {
+                        // We did find the employee
+                        // show details
+                        Console.WriteLine($"{foundEmployee.Name} is in department {foundEmployee.Department} and makes ${foundEmployee.Salary}");
+                        // ask to confirm "Are you sure you want to delete?"
+                        var confirm = PromptForString("Are you sure? [Y/N] ").ToUpper();
+
+                        // no
+                        if (confirm == "Y")
+                        {
+                            employees.Remove(foundEmployee);
+                        }
+                    }
+                    else
+                    {
+                        // otherwise
+                        //  - nope
+                        // "Employee doesn't exist"
+                        Console.WriteLine("Employee doesn't exist.");
+                    }
+                }
+                else
+                if (choice == "F")
                 {
                     // Ask for the name of an employee
                     var name = PromptForString("What name are you looking for? ");
