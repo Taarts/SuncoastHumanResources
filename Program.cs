@@ -1,5 +1,6 @@
 using System;
 
+
 namespace SuncoastHumanResources
 {
 
@@ -43,6 +44,7 @@ namespace SuncoastHumanResources
         {
             // Our list of employees
             var database = new EmployeeDatabase();
+            database.LoadEmployees();
 
             // Should we keep showing the menu?
 
@@ -86,6 +88,7 @@ namespace SuncoastHumanResources
                 }
                 // end of the `while` statement
             }
+            database.SaveEmployees();
         }
 
         private static void DeleteEmployee(EmployeeDatabase database)
