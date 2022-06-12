@@ -7,6 +7,15 @@ namespace SuncoastHumanResources
     {
         private List<Employee> Employees { get; set; } = new List<Employee>();
 
+        public void LoadEmployees()
+        {
+
+        }
+
+        public void SaveEmployees()
+        {
+
+        }
         // Create ADD employee
         public void AddEmployee(Employee newEmployee)
         {
