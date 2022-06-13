@@ -88,7 +88,6 @@ namespace SuncoastHumanResources
                 }
                 // end of the `while` statement
             }
-            database.SaveEmployees();
         }
 
         private static void DeleteEmployee(EmployeeDatabase database)
