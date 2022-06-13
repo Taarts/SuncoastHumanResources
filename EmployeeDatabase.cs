@@ -10,14 +10,25 @@ namespace SuncoastHumanResources
     {
         private List<Employee> Employees { get; set; } = new List<Employee>();
 
+        private string FileName = "employees.csv";
+
+        // Method to load employees (returns nothing, just populates the list)
         public void LoadEmployees()
         {
+            if (File.Exists(FileName))
+            {
+                var fileReader = new StreamReader(FileName);
+                var csvReader = new CsvReader(fileReader, CultureInfo.InvariantCulture);
+                // replaces BLANK list of employees with the ones that are in the csv file
+                Employees = csvReader.GetRecords<Employee>().ToList();
 
+                fileReader.Close();
+            }
         }
-
+        // write to file
         public void SaveEmployees()
         {
-            var fileWriter = new StreamWriter("employees.csv");
+            var fileWriter = new StreamWriter(FileName);
             var csvWriter = new CsvWriter(fileWriter, CultureInfo.InvariantCulture);
             csvWriter.WriteRecords(Employees);
 
@@ -27,6 +38,7 @@ namespace SuncoastHumanResources
         public void AddEmployee(Employee newEmployee)
         {
             Employees.Add(newEmployee);
+            SaveEmployees();
         }
         // Read GET all the Employees
         public List<Employee> GetAllEmployees()
